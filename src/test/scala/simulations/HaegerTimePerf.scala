@@ -17,7 +17,7 @@ class HaegerTimePerf extends Simulation{
   }
 
   def userCount: Int = getProperty("USERS", "5").toInt
-  def rampDuration: Int = getProperty("RAMP_DURATION", "20").toInt
+  def rampDuration: Int = getProperty("RAMP_DURATION", "10").toInt
   def testDuration: Int = getProperty("DURATION", "20").toInt
 
   val csvFeeder = csv("src/test/resources/data/customer.csv").circular
@@ -61,7 +61,7 @@ val scn = scenario("Haeger Time Performance Test")
 
   setUp(
     scn.inject(
-      nothingFor(3.seconds),
+      nothingFor(5.seconds),
       rampUsers(userCount) during (rampDuration.seconds))
   )
     .protocols(httpConf)

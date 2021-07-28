@@ -12,13 +12,17 @@ class UpdateUserPutUndDelete extends Simulation {
     .exec(http("Update specific users")
       .put("api/users/2")
       .body(RawFileBody("src/test/resources/bodies/UpdateUser.json")).asJson
-      .check(status.in (200 to 201)))
+      .check(status.in (200 to 201))
+
+
+    )
 
     .pause(3)
 
     .exec(http("delete user")
       .delete("api/users/2")
-      .check(status.is (204)))
+      .check(status.is (204))
+      .check(bodyString.saveAs("responseBody")))
 
   setUp(scn.inject(atOnceUsers(1))).protocols(httpConf)
 
